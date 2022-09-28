@@ -52,53 +52,67 @@ with st.expander("ℹ️ - About this app", expanded=True):
 st.markdown("")
 st.markdown("## **📌 Paste document **")
 with st.form(key="my_form"):
-    ce, c1, ce, c2, c3 = st.columns([0.07, 1, 0.07, 5, 0.07])
+    # ce, c1, ce, c2, c3 = st.columns([0.01, 1, 0.07, 5, 0.07])
 
-    with c1:
-        StopWordsCheckbox = st.checkbox(
-            "Remove stop words",
-            help="Tick this box to remove stop words from the document (currently English only)",
+    # with c1:
+    #     StopWordsCheckbox = st.checkbox(
+    #         "Remove stop words",
+    #         help="Tick this box to remove stop words from the document (currently English only)",
+    #     )
+
+    # with c2:
+    doc = st.text_area(
+        "Escribe el documento aquí (maximo 500 palabras)",
+        height=510,
+    )
+
+    MAX_WORDS = 500
+    import re
+
+    res = len(re.findall(r"\w+", doc))
+    if res > MAX_WORDS:
+        st.warning(
+            "⚠️ Your text contains "
+            + str(res)
+            + " words."
+            + " Only the first 500 words will be reviewed. Stay tuned as increased allowance is coming! 😊"
         )
 
-    with c2:
-        doc = st.text_area(
-            "Paste your text below (max 500 words)",
-            height=510,
-        )
+        doc = doc[:MAX_WORDS]
 
-        MAX_WORDS = 500
-        import re
-
-        res = len(re.findall(r"\w+", doc))
-        if res > MAX_WORDS:
-            st.warning(
-                "⚠️ Your text contains "
-                + str(res)
-                + " words."
-                + " Only the first 500 words will be reviewed. Stay tuned as increased allowance is coming! 😊"
-            )
-
-            doc = doc[:MAX_WORDS]
-
-        submit_button = st.form_submit_button(label="✨ Predecir posibles ICD y enfermedades futuras")
+    submit_button = st.form_submit_button(label="✨ Predecir posibles ICD y enfermedades futuras")
 
     # if use_MMR:
     #     mmr = True
     # else:
     #     mmr = False
 
-    if StopWordsCheckbox:
-        StopWords = "english"
-    else:
-        StopWords = None
+    # if StopWordsCheckbox:
+    #     StopWords = "english"
+    # else:
+    #     StopWords = None
 
 if not submit_button:
     st.stop()
+st.markdown("## Códigos ICD inferidos ##")
+with st.container():
+    annotated_text(
+        "El paciente presenta", ("fiebre", "", "#8ef"), ("dolor abdominal", ""), "e", ("hinchazón en el abdomen", ""),
+        "Posible cuadro de ", ("obstrucción intestinal", "", "#faa")
+    )
+    st.write("\n\n\n")
 
-annotated_text(
 
-    (doc,"#8ef")
-)
+with st.container():
+    annotated_text(
+
+        ("R50", "", "#8ef"), ":Fever of other and unknown origin"
+    )
+
+    annotated_text(
+
+        ("K56", "", "#faa"), "Paralytic ileus and intestinal obstruction without hernia"
+    )
 
 # keywords = kw_model.extract_keywords(
 #     doc,
