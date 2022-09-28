@@ -6,6 +6,9 @@ import seaborn as sns
 # For download buttons
 import os
 import json
+from annotated_text import annotated_text
+
+
 
 st.set_page_config(
     page_title="Predictor de futuros ICDs",
@@ -92,6 +95,10 @@ with st.form(key="my_form"):
 if not submit_button:
     st.stop()
 
+annotated_text(
+
+    (doc,"#8ef")
+)
 
 # keywords = kw_model.extract_keywords(
 #     doc,
@@ -128,20 +135,10 @@ if not submit_button:
 # Add styling
 cmGreen = sns.light_palette("green", as_cmap=True)
 cmRed = sns.light_palette("red", as_cmap=True)
-df = df.style.background_gradient(
-    cmap=cmGreen,
-    subset=[
-        "Relevancy",
-    ],
-)
+
 
 c1, c2, c3 = st.columns([1, 3, 1])
 
 format_dictionary = {
     "Relevancy": "{:.1%}",
 }
-
-df = df.format(format_dictionary)
-
-with c2:
-    st.table(df)
