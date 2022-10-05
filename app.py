@@ -1,4 +1,3 @@
-# For Flair (Keybert)
 import seaborn as sns
 import streamlit as st
 # For download buttons
@@ -10,8 +9,6 @@ st.set_page_config(
     page_icon="🎈",
     #layout="wide"
 )
-
-
 def _max_width_():
     max_width_str = f"max-width: 1600px;"
     st.markdown(
@@ -48,20 +45,9 @@ with st.expander("ℹ️ - About this app", expanded=True):
 st.markdown("")
 
 
-placeholder_form_1 = st.empty()
 
-with placeholder_form_1.form(key="form_1"):
+with st.form(key="form_1"):
     st.markdown("## **📌 Paste document **")
-
-    # ce, c1, ce, c2, c3 = st.columns([0.01, 1, 0.07, 5, 0.07])
-
-    # with c1:
-    #     StopWordsCheckbox = st.checkbox(
-    #         "Remove stop words",
-    #         help="Tick this box to remove stop words from the document (currently English only)",
-    #     )
-
-    # with c2:
 
     doc = st.text_area(
         "Escribe el documento aquí (maximo 500 palabras)",
@@ -84,37 +70,12 @@ with placeholder_form_1.form(key="form_1"):
 
     submit_button = st.form_submit_button(label="✨ Predecir codigos ICD asociados")
 
-    # if use_MMR:
-    #     mmr = True
-    # else:
-    #     mmr = False
-
-    # if StopWordsCheckbox:
-    #     StopWords = "english"
-    # else:
-    #     StopWords = None
-
+#
 if not submit_button:
     st.stop()
 
-#placeholder_form_1.empty()
 
 st.markdown("## Códigos ICD inferidos ##")
-
-dict_icd={"R50":"R50: Fever of other and unknown origin",
-                  "K56":"K56: Paralytic ileus and intestinal obstruction without hernia"}
-
-icds=["230","450","2309"]
-selections = st.multiselect("", icds, default=icds[:2])
-for selec in selections:
-    st.write(selec)
-st.write("\n\n\n")
-
-
-st.markdown("### Códigos ICD asociados ###")
-for selec in selections:
-    st.write(selec)
-
 placeholder_form_2 = st.empty()
 
 with placeholder_form_2.form(key="form_2"):
@@ -129,20 +90,20 @@ with placeholder_form_2.form(key="form_2"):
 
         st.write("\n\n\n")
 
-
-        dict_icd={"R50":"R50: Fever of other and unknown origin",
-                  "K56":"K56: Paralytic ileus and intestinal obstruction without hernia"}
+        dict_icd = {"R50": "R50: Fever of other and unknown origin",
+                    "K56": "K56: Paralytic ileus and intestinal obstruction without hernia",
+                    "a": "ajdksjkdaksd",
+                    "n": "klasdkflsfdkla"}
 
         icds=["230","450","2309"]
-        selections = st.multiselect("", icds, default=icds[:2])
-        for selec in selections:
-            st.write(selec)
+        selections = st.multiselect("", list(dict_icd.keys()), default=list(dict_icd.keys()))
+        for key in dict_icd:
+            st.write(dict_icd[key])
         st.write("\n\n\n")
 
 
         st.markdown("### Códigos ICD asociados ###")
-        for selec in selections:
-            st.write(selec)
+
 
         # annotated_text(
         #
@@ -158,12 +119,41 @@ with placeholder_form_2.form(key="form_2"):
 
 
         ##on_change
-        submit_button_2 = st.form_submit_button(label="✨ Analizar otro documento clínico")
+        submit_button_2 = st.form_submit_button(label="✨ Actualizar ICDs")
+
+        if submit_button_2:
+            for key in selections:
+                st.write(dict_icd[key])
+
 
 if not submit_button_2:
     st.stop()
 
-    submit_button_2 = st.form_submit_button(label="✨ Predecir posibles códigos ICD derivados")
+# st.markdown("### Texto ###")
+#
+# annotated_text(
+#     "El paciente presenta", ("fiebre", "", "#8ef"), ("dolor abdominal", ""), "e", ("hinchazón en el abdomen", ""),
+#     "Posible cuadro de ", ("obstrucción intestinal", "", "#faa")
+# )
+#
+# st.write("\n\n\n")
+#
+#
+# dict_icd={"R50":"R50: Fever of other and unknown origin",
+#           "K56":"K56: Paralytic ileus and intestinal obstruction without hernia",
+#           "a":"ajdksjkdaksd",
+#           "n":"klasdkflsfdkla"}
+#
+# icds=["230","450","2309"]
+# selections = st.multiselect("", list(dict_icd.keys()), default=list(dict_icd.keys()))
+# for key in selections:
+#     st.write(dict_icd[key])
+# st.write("\n\n\n")
+#
+#
+# st.markdown("### Códigos ICD asociados ###")
+#
+#
 
 # keywords = kw_model.extract_keywords(
 #     doc,
