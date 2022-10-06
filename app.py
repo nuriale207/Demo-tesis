@@ -45,8 +45,8 @@ with st.expander("ℹ️ - About this app", expanded=True):
 st.markdown("")
 
 
-
-with st.form(key="form_1"):
+placeholder_form = st.empty()
+with placeholder_form.form(key="form_1"):
     st.markdown("## **📌 Paste document **")
 
     doc = st.text_area(
@@ -74,7 +74,7 @@ with st.form(key="form_1"):
 if not submit_button:
     st.stop()
 
-
+placeholder_form.empty()
 st.markdown("## Códigos ICD inferidos ##")
 placeholder_form_2 = st.empty()
 
