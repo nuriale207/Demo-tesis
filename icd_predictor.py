@@ -40,13 +40,18 @@ with st.expander("ℹ️ - About this app", expanded=True):
 
 st.markdown("")
 
+st.write("#### Ejemplos ####")
+
+option = st.selectbox("",
+    ('', 'Ejemplo 1', 'Ejemplo 2', "Ejemplo 3"))
+
 placeholder_form = st.empty()
 with placeholder_form.form(key="form_1"):
-    st.markdown("## **📌 Paste document **")
+    st.markdown("## Write document ##")
 
     doc = st.text_area(
         "Escribe el documento aquí (maximo 500 palabras)",
-        height=510,
+        height=510, value=option
     )
 
     MAX_WORDS = 500
