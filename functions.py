@@ -1,7 +1,7 @@
 import matplotlib
 import pandas as pd
 
-matplotlib.use('TkAgg')
+matplotlib.use('Agg')
 
 import matplotlib.pyplot as plt
 import numpy as np
@@ -9,7 +9,7 @@ import matplotlib.dates as mdates
 from datetime import datetime, timedelta
 
 
-def timeline_chart(icds):
+def timeline_chart(icds, title="Timeline de los ICD"):
     # In case the above fails, e.g. because of missing internet connection
     # use the following lists as fallback.
     names = icds
@@ -31,7 +31,7 @@ def timeline_chart(icds):
 
     # Create figure and plot a stem plot with the date
     fig, ax = plt.subplots(figsize=(8.8, 4), constrained_layout=True)
-    ax.set(title="Matplotlib release dates")
+    ax.set(title=title)
 
     ax.vlines(dates, 0, levels, color="tab:red")  # The vertical stems.
     ax.plot(dates, np.zeros_like(dates), "-o",
@@ -56,7 +56,8 @@ def timeline_chart(icds):
 
     ax.margins(y=0.1)
     plt.savefig("prueba.png")
-    plt.show()
+    #plt.show()
+    return fig
 
 icds=["R50","K56"]
 timeline_chart(icds)

@@ -1,8 +1,12 @@
+import time
+
 import pandas as pd
 import seaborn as sns
 import streamlit as st
 # For download buttons
 from annotated_text import annotated_text
+
+import functions
 
 ##PAGE SETTINGS
 st.set_page_config(
@@ -45,8 +49,8 @@ st.write("#### Ejemplos ####")
 option = st.selectbox("",
     ('', 'Ejemplo 1', 'Ejemplo 2', "Ejemplo 3"))
 
-placeholder_form = st.empty()
-with placeholder_form.form(key="form_1"):
+# placeholder_form = st.empty()
+with st.form(key="form_1"):
     st.markdown("## Write document ##")
 
     doc = st.text_area(
@@ -74,7 +78,7 @@ with placeholder_form.form(key="form_1"):
 if not submit_button:
     st.stop()
 
-placeholder_form.empty()
+# placeholder_form.empty()
 
 
 st.markdown("### Registro clínico ###")
@@ -99,6 +103,10 @@ with st.expander("Códigos ICD identificados", expanded=False):
 
 
 st.write("\n\n")
+
+time.sleep(3)
+plot=functions.timeline_chart(["R50","K56"])
+st.pyplot(plot)
 
 st.write("#### Posibles futuros diagnósticos ####")
 
