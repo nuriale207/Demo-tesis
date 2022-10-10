@@ -1,7 +1,6 @@
 import time
 
 import pandas as pd
-import seaborn as sns
 import streamlit as st
 # For download buttons
 from annotated_text import annotated_text
@@ -53,9 +52,17 @@ option = st.selectbox("",
 with st.form(key="form_1"):
     st.markdown("## Write document ##")
 
+    ejemplo=""
+    if str(option)== "Ejemplo 1":
+        ejemplo= functions.get_ejemplo_1()
+    else:
+        ejemplo=option
+
+    print(option)
+    print(ejemplo)
     doc = st.text_area(
         "Escribe el documento aquí (maximo 500 palabras)",
-        height=510, value=option
+        height=510, value=ejemplo
     )
 
     MAX_WORDS = 500
@@ -83,23 +90,24 @@ if not submit_button:
 
 st.markdown("### Registro clínico ###")
 
-annotated_text(
-    "El paciente presenta", ("fiebre", "", "#8ef"), "dolor abdominal e hinchazón en el abdomen. ",
-    "Posible cuadro de ", ("obstrucción intestinal", "", "#faa")
-)
-
+# annotated_text(
+#     "El paciente presenta", ("fiebre", "", "#8ef"), "dolor abdominal e hinchazón en el abdomen. ",
+#     "Posible cuadro de ", ("obstrucción intestinal", "", "#faa")
+# )
+functions.get_ejemplo_1_marked()
 st.write("\n\n\n")
 
 with st.expander("Códigos ICD identificados", expanded=False):
-    annotated_text(
-
-        ("R50", "", "#8ef"), ":Fever of other and unknown origin"
-    )
-
-    annotated_text(
-
-        ("K56", "", "#faa"), "Paralytic ileus and intestinal obstruction without hernia"
-    )
+    functions.get_ejemplo_1_marked_ICD()
+    # annotated_text(
+    #
+    #     ("R50", "", "#8ef"), ":Fever of other and unknown origin"
+    # )
+    #
+    # annotated_text(
+    #
+    #     ("K56", "", "#faa"), "Paralytic ileus and intestinal obstruction without hernia"
+    # )
 
 
 st.write("\n\n")
