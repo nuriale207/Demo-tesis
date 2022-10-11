@@ -13,7 +13,7 @@ from annotated_text import annotated_text
 from matplotlib import pyplot as plt
 
 
-def timeline_chart(icds, title="Timeline de los ICD"):
+def timeline_chart(icds, title=""):
     # In case the above fails, e.g. because of missing internet connection
     # use the following lists as fallback.
     names = icds

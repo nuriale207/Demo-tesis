@@ -9,8 +9,8 @@ import functions
 
 ##PAGE SETTINGS
 st.set_page_config(
-    page_title="Predictor de futuros ICDs",
-    page_icon="🎈",
+    page_title="Future admissions analyzer ",
+    page_icon="⚕️",
     #layout="wide"
 )
 def _max_width_():
@@ -28,42 +28,53 @@ def _max_width_():
 
 
 _max_width_()
-st.title("Predictor de futuros ICDs")
+st.title("Future admissions analyzer")
 st.header("")
 
 with st.expander("ℹ️ - About this app", expanded=True):
+#     st.write(
+#         """
+# -   El predictor de futuras enfermedades se basa en el estudio de miles de historiales de pacientes previos para sugerir enfermedades que el paciente tiene riesgo de sufrir
+# -   Emplea un modelo de inteligencia artificial entrenado para dicho propósito utilizando evoluciones clínicas de miles de pacientes
+#  """
+#     )
     st.write(
-        """     
--   El predictor de futuras enfermedades se basa en el estudio de miles de historiales de pacientes previos para sugerir enfermedades que el paciente tiene riesgo de sufrir
--   Emplea un modelo de inteligencia artificial entrenado para dicho propósito utilizando evoluciones clínicas de miles de pacientes
- """
-    )
+            """     
+    -   The predictor of future diseases is based on the study of thousands of previous patient histories to suggest diseases that the patient is at risk of suffering.    
+    -  It employs an artificial intelligence model trained for this purpose using clinical evolutions of thousands of patients.
+     """
+        )
+
 
     st.markdown("")
 
 st.markdown("")
 
-st.write("#### Ejemplos ####")
+# st.write("#### Ejemplos ####")
 
 # option = st.selectbox("",
 #     ('', 'Ejemplo 1', 'Ejemplo 2', "Ejemplo 3"))
-option = st.selectbox("",
-    ('', 'Ejemplo 1'))
+option = st.selectbox("Examples",
+    ('', 'Example 1'))
 
 # placeholder_form = st.empty()
 with st.form(key="form_1"):
     st.markdown("## Write document ##")
 
     ejemplo=""
-    if str(option)== "Ejemplo 1":
+    if str(option)== "Example 1":
         ejemplo= functions.get_ejemplo_1()
     else:
         ejemplo=option
 
     print(option)
     print(ejemplo)
+    # doc = st.text_area(
+    #     "Escribe el documento aquí (maximo 500 palabras)",
+    #     height=510, value=ejemplo
+    # )
     doc = st.text_area(
-        "Escribe el documento aquí (maximo 500 palabras)",
+        "Write the document here",
         height=510, value=ejemplo
     )
 
@@ -81,7 +92,7 @@ with st.form(key="form_1"):
 
         doc = doc[:MAX_WORDS]
 
-    submit_button = st.form_submit_button(label="✨ Predecir codigos ICD asociados")
+    submit_button = st.form_submit_button(label="⚙️ Analyze the document")
 
 #
 if not submit_button:
@@ -90,8 +101,8 @@ if not submit_button:
 # placeholder_form.empty()
 
 
-st.markdown("### Registro clínico ###")
-
+# st.markdown("### Registro clínico ###")
+st.markdown("### Marked document ###")
 # annotated_text(
 #     "El paciente presenta", ("fiebre", "", "#8ef"), "dolor abdominal e hinchazón en el abdomen. ",
 #     "Posible cuadro de ", ("obstrucción intestinal", "", "#faa")
@@ -99,8 +110,8 @@ st.markdown("### Registro clínico ###")
 functions.get_ejemplo_1_marked()
 st.write("\n\n\n")
 
-with st.expander("Códigos ICD identificados", expanded=False):
-    if str(option)== "Ejemplo 1":
+with st.expander("Predicted ICD codes", expanded=False):
+    if str(option)== "Example 1":
         functions.get_ejemplo_1_marked_ICD()
 
     # annotated_text(
@@ -115,13 +126,14 @@ with st.expander("Códigos ICD identificados", expanded=False):
 
 
 st.write("\n\n")
+st.write("#### Inferred ICD timeline ####")
 
 time.sleep(3)
 plot=functions.timeline_chart(functions.get_ejemplo_1_cronology())
 
 st.pyplot(plot)
 
-st.write("#### Posibles futuros diagnósticos ####")
+st.write("#### Posible future diagnoses ####")
 
 df_futuro=functions.get_ejemplo_1_future()
 # CSS to inject contained in a string
