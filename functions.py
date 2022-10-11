@@ -8,6 +8,7 @@
 import matplotlib.dates as mdates
 from datetime import datetime, timedelta
 import numpy as np
+import pandas as pd
 from annotated_text import annotated_text
 from matplotlib import pyplot as plt
 
@@ -99,21 +100,21 @@ def get_ejemplo_1():
 
 def get_ejemplo_1_marked():
     annotated_text(
-        "HISTORY OF PRESENT ILLNESS\n"
+        "HISTORY OF PRESENT ILLNESS \n"
         "The night of admission he developed a right arm fine tremor that increased in"
         " intensity over the next hour and he fell forward hitting his face on the ground and became unresponsive. "
-        "At the time he was evaluated, he was nonverbal with right facial droop and questionable right arm weakness. "
+        "At the time he was evaluated, he was nonverbal with right facial droop and ", ("questionable right arm weakness","","#a88b49"), ". "
         "Twenty minutes later the patient had a grand tonic clonic seizure in the transport vehicle the patient was "
         "intubated and brought to the trauma intensive care unit where he was started on dilantin and propofol. "
         "The patient had a", ("notable chronic bilateral frontal  subdural hygromas","","#a2f5a8"), "and",
         ("nasal bone fracture.","", "#cea2f5"),
         "The patient was admitted to the trauma ctu for repair of the ", ("nasal bone fracture","", "#cea2f5"), " maintained on a p o once "
         "daily dose of dilantin with stable vital signs and thereafter was transferred to the neurology service for "
-        "further management and etiology of his new grand tonic clonic seizure. \n\n"
-        "PAST MEDICAL HISTORY\n",
+        "further management and etiology of his new grand tonic clonic seizure.\n\n"
+        "PAST MEDICAL HISTORY \n",
         ("hypertension","","#f3f5a2"), ", ",("insulin dependent diabetes mellitus","","#a2c6f5"), ", low grade ",("prostate cancer","","#99f0de"), "  and  "
         "",("recurrent invasive melanoma","","#f0999f"), "\n\n"
-        "MEDICATIONS PRIOR TO ADMISSION\n"
+        "MEDICATIONS PRIOR TO ADMISSION \n"
         "lisinopril, humulin, insulin, avandia, aspirin and tylenol\n\n"
         "HOSPITAL COURSE \n"
         "The patient was admitted to the neurology service after trauma he sustained for ", ("nasal bone fracture","", "#cea2f5"), ". "
@@ -125,9 +126,9 @@ def get_ejemplo_1_marked():
         " started on lisinopril and aspirin for cardiovascular and stroke prophylaxis. The patient s diet was "
         "advanced from liquids to full consistency without any difficulty the patient was seen by physical therapy "
         "and approved for discharge to home with home physical therapy services\n\n"
-        "DISCHARGE STATUS \n"
+        "DISCHARGE STATUS\n"
         "Home with physical therapy\n\n"
-        "DISCHARGE DIAGNOSIS \n"
+        "DISCHARGE DIAGNOSIS\n"
         "Grand tonic clonic seizure of unknown etiology"
     )
 
@@ -135,42 +136,57 @@ def get_ejemplo_1_marked():
 def get_ejemplo_1_marked_ICD():
     annotated_text(
 
-        ("780.39", "", "#fcc23a"), ":Convulsions"
+        (" 780.39", "", "#fcc23a"), ":Convulsions"
     )
 
     annotated_text(
 
-        ("852.20", "", "#a2f5a8"), "Subdural hemorrhage following injury without mention of open intracranial wound, "
+        (" 852.20", "", "#a2f5a8"), "Subdural hemorrhage following injury without mention of open intracranial wound, "
                                 "unspecified state of consciousness"
     )
 
     annotated_text(
 
-        ("80.20", "", "#cea2f5"), ":Closed fracture of nasal bones"
+        (" 802.0", "", "#cea2f5"), ":Closed fracture of nasal bones"
     )
 
     annotated_text(
 
-        ("250.00", "", "#a2c6f5"), ":Diabetes mellitus without mention of complication, type II or unspecified type,"
+        (" 250.00", "", "#a2c6f5"), ":Diabetes mellitus without mention of complication, type II or unspecified type,"
                                 " not stated as uncontrolled"
     )
 
     annotated_text(
 
-        ("401.9", "", "#f3f5a2"), ":Unspecified essential hypertension"
+        (" 401.9", "", "#f3f5a2"), ":Unspecified essential hypertension"
     )
 
     annotated_text(
 
-        ("185", "", "#99f0de"), ":Malignant neoplasm of prostate"
+        (" 185", "", "#99f0de"), ":Malignant neoplasm of prostate"
     )
 
     annotated_text(
 
-        ("V10.82", "", "#f0999f"), ":Personal history of malignant melanoma of skin"
+        (" V10.82", "", "#f0999f"), ":Personal history of malignant melanoma of skin"
     )
 
     annotated_text(
 
-        ("728.89", "", "#a88b49"), ":Other disorders of muscle, ligament, and fascia"
+        (" 728.89", "", "#a88b49"), ":Other disorders of muscle, ligament, and fascia"
     )
+
+
+def get_ejemplo_1_cronology():
+    return ["401.9","250.00","V10.82","185", "780.39","728.89","852.20","802.0"]
+
+def get_ejemplo_1_future():
+    lista_icd = ["348.4", "172.4", "191","438.0"]
+    lista_definiciones = ["Brain Hernia", "Billable Malignant melanoma of skin of scalp and neck",
+                          "Malignant neoplasm of brain", "Late effects of cerebrovascular disease, cognitive deficits" ]
+    lista_confianza = ["70%", "62%", "57%", "51%"]
+
+    df_futuro = pd.DataFrame(list(zip(lista_icd, lista_definiciones, lista_confianza)),
+                             columns=["ICD", "Definition", "Confidence"])
+
+    return df_futuro

@@ -45,8 +45,10 @@ st.markdown("")
 
 st.write("#### Ejemplos ####")
 
+# option = st.selectbox("",
+#     ('', 'Ejemplo 1', 'Ejemplo 2', "Ejemplo 3"))
 option = st.selectbox("",
-    ('', 'Ejemplo 1', 'Ejemplo 2', "Ejemplo 3"))
+    ('', 'Ejemplo 1'))
 
 # placeholder_form = st.empty()
 with st.form(key="form_1"):
@@ -98,7 +100,9 @@ functions.get_ejemplo_1_marked()
 st.write("\n\n\n")
 
 with st.expander("Códigos ICD identificados", expanded=False):
-    functions.get_ejemplo_1_marked_ICD()
+    if str(option)== "Ejemplo 1":
+        functions.get_ejemplo_1_marked_ICD()
+
     # annotated_text(
     #
     #     ("R50", "", "#8ef"), ":Fever of other and unknown origin"
@@ -113,17 +117,13 @@ with st.expander("Códigos ICD identificados", expanded=False):
 st.write("\n\n")
 
 time.sleep(3)
-plot=functions.timeline_chart(["R50","K56"])
+plot=functions.timeline_chart(functions.get_ejemplo_1_cronology())
+
 st.pyplot(plot)
 
 st.write("#### Posibles futuros diagnósticos ####")
 
-lista_icd=["234","345","999","21"]
-lista_definiciones= ["una","enfermedad","muy","grave"]
-lista_confianza=["70%","20%","2%","1%"]
-
-df_futuro=pd.DataFrame(list(zip(lista_icd,lista_definiciones,lista_confianza)),columns=["ICD","Definición","Confianza"])
-
+df_futuro=functions.get_ejemplo_1_future()
 # CSS to inject contained in a string
 hide_table_row_index = """
             <style>
