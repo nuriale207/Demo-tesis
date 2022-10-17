@@ -11,23 +11,23 @@ import functions
 st.set_page_config(
     page_title="Future admissions analyzer ",
     page_icon="⚕️",
-    #layout="wide"
+    layout="wide"
 )
-def _max_width_():
-    max_width_str = f"max-width: 1600px;"
-    st.markdown(
-        f"""
-    <style>
-    .reportview-container .main .block-container{{
-        {max_width_str}
-    }}
-    </style>    
-    """,
-        unsafe_allow_html=True,
-    )
-
-
-_max_width_()
+# def _max_width_():
+#     max_width_str = f"max-width: 1600px;"
+#     st.markdown(
+#         f"""
+#     <style>
+#     .reportview-container .main .block-container{{
+#         {max_width_str}
+#     }}
+#     </style>
+#     """,
+#         unsafe_allow_html=True,
+#     )
+#
+#
+# _max_width_()
 st.title("Future admissions analyzer")
 st.header("")
 

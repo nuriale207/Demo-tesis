@@ -30,14 +30,16 @@ def timeline_chart(icds, title=""):
     #dates = [datetime.strptime(d, "%Y-%m-%d") for d in dates]
 
     # Choose some nice levels
-    levels = np.tile([-5, 5, -3, 3, -1, 1],
+    # levels = np.tile([0.2,0.2,0.2,0.2,0.2,0.2],
+    #                  int(np.ceil(len(dates) / 6)))[:len(dates)]
+    levels = np.tile([0.2,0.2,0.2,0.2,0.2,0.2],
                      int(np.ceil(len(dates) / 6)))[:len(dates)]
 
     # Create figure and plot a stem plot with the date
     fig, ax = plt.subplots(figsize=(8.8, 4), constrained_layout=True)
     ax.set(title=title)
 
-    ax.vlines(dates, 0, levels, color="tab:red")  # The vertical stems.
+    ax.vlines(dates, 0, levels, color=["#f3f5a2","#a2c6f5","#f0999f","#99f0de","#a88b49","#a2f5a8","#cea2f5"])  # The vertical stems.
     ax.plot(dates, np.zeros_like(dates), "-o",
             color="k", markerfacecolor="w")  # Baseline and markers on it.
 
@@ -134,10 +136,7 @@ def get_ejemplo_1_marked():
 
 
 def get_ejemplo_1_marked_ICD():
-    annotated_text(
 
-        (" 780.39", "", "#fcc23a"), ":Convulsions"
-    )
 
     annotated_text(
 
@@ -178,7 +177,7 @@ def get_ejemplo_1_marked_ICD():
 
 
 def get_ejemplo_1_cronology():
-    return ["401.9","250.00","V10.82","185", "780.39","728.89","852.20","802.0"]
+    return ["401.9","250.00","V10.82","185", "728.89","852.20","802.0"]
 
 def get_ejemplo_1_future():
     lista_icd = ["348.4", "172.4", "191","438.0"]
